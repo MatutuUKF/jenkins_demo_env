@@ -1,7 +1,11 @@
 
 class Main{
     public void main(){
-        System.out.println("Hello New Gradle Project");
+        print("Hello Gradle App");
+    }
+
+    static void print(String input){
+        System.out.println(input);
     }
 
 }
