@@ -1,19 +1,47 @@
 plugins {
-    id("java")
+    java
+    application
+    id("org.openjfx.javafxplugin") version "0.0.14"
+    id("org.beryx.jlink") version "3.0.1"
 }
 
 group = "org.example"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
-tasks.test {
-    useJUnitPlatform()
+application {
+    mainModule.set("imageHelper")
+    mainClass.set("imageHelper.Main")
 }
+
+javafx {
+    version = "21"
+    modules = listOf("javafx.controls")
+}
+
+jlink {
+
+    mergedModule {
+        additive = true
+    }
+
+    launcher {
+        name = "ImageHelper"
+    }
+
+    jpackage {
+        installerType = "exe"
+        imageName = "ImageHelper"
+        installerName = "ImageHelper"
+    }
+}
+
